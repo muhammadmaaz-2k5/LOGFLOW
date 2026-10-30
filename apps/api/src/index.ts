@@ -64,12 +64,15 @@ export async function buildApp() {
   return app;
 }
 
-const isMain = process.argv[1]?.replace(/\\/g, '/').endsWith('src/index.ts');
+const isMain =
+  process.argv[1]?.replace(/\\/g, '/').endsWith('src/index.ts') ||
+  process.argv[1]?.replace(/\\/g, '/').endsWith('dist/index.js');
 if (isMain) {
   buildApp()
     .then(async (app) => {
-      await app.listen({ port: config.port, host: config.host });
-      console.log(`🚀 LogFlow API listening on http://localhost:${config.port}`);
+      const port = Number(process.env.PORT ?? config.port);
+      await app.listen({ port, host: '0.0.0.0' });
+      console.log(`🚀 LogFlow API listening on port ${port}`);
 
       const shutdown = async (signal: string) => {
         console.log(`\n[LogFlow API] Received ${signal}, shutting down gracefully...`);
