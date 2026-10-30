@@ -1,0 +1,42 @@
+/* Buttons */
+.lf-btn{display:inline-flex;align-items:center;gap:var(--lf-space-2);height:36px;padding:0 var(--lf-space-4);border:1px solid transparent;border-radius:var(--lf-radius);font:500 var(--lf-text-base) var(--lf-font-sans);cursor:pointer;transition:background .15s,border-color .15s}
+.lf-btn--primary{background:var(--lf-blue);color:#fff}.lf-btn--primary:hover{background:var(--lf-blue-600)}
+.lf-btn--secondary{background:var(--lf-surface);color:var(--lf-text);border-color:var(--lf-border)}.lf-btn--secondary:hover{background:var(--lf-surface-2)}
+.lf-btn--ghost{background:transparent;color:var(--lf-text-muted)}.lf-btn--ghost:hover{background:var(--lf-surface-2);color:var(--lf-text)}
+.lf-btn--danger{background:var(--lf-error);color:#fff}
+.lf-btn:disabled{opacity:.5;cursor:not-allowed}
+.lf-btn--icon{width:36px;padding:0;justify-content:center}
+/* Inputs */
+.lf-input{height:36px;width:100%;padding:0 var(--lf-space-3);background:var(--lf-surface);color:var(--lf-text);border:1px solid var(--lf-border);border-radius:var(--lf-radius);font:var(--lf-text-base) var(--lf-font-sans)}
+.lf-input:focus{outline:none;border-color:var(--lf-blue);box-shadow:var(--lf-focus)}
+.lf-input--query{font-family:var(--lf-font-mono);font-size:var(--lf-text-sm)}
+/* Cards & panels */
+.lf-card{background:var(--lf-surface);border:1px solid var(--lf-border);border-radius:var(--lf-radius-lg);padding:var(--lf-space-5);box-shadow:var(--lf-shadow-sm)}
+/* Level badges */
+.lf-level{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:var(--lf-radius-sm);font:600 11px var(--lf-font-mono);letter-spacing:.04em}
+.lf-level--trace{color:var(--lf-trace);background:var(--lf-trace-bg)}
+.lf-level--debug{color:var(--lf-debug);background:var(--lf-debug-bg)}
+.lf-level--info{color:var(--lf-info);background:var(--lf-info-bg)}
+.lf-level--warn{color:var(--lf-warn);background:var(--lf-warn-bg)}
+.lf-level--error{color:var(--lf-error);background:var(--lf-error-bg)}
+.lf-level--fatal{color:var(--lf-fatal);background:var(--lf-fatal-bg)}
+/* Log table / stream */
+.lf-logs{font:400 var(--lf-text-sm)/1.6 var(--lf-font-mono);background:var(--lf-surface);border:1px solid var(--lf-border);border-radius:var(--lf-radius-lg);overflow:hidden}
+.lf-log-row{display:grid;grid-template-columns:168px 64px 140px 1fr;gap:var(--lf-space-3);padding:4px var(--lf-space-4);border-bottom:1px solid var(--lf-border);align-items:baseline}
+.lf-log-row:hover{background:var(--lf-surface-2)}
+.lf-log-row time{color:var(--lf-text-faint)} .lf-log-row .svc{color:var(--lf-text-muted)}
+.lf-log-row--error{box-shadow:inset 3px 0 0 var(--lf-error)} .lf-log-row--warn{box-shadow:inset 3px 0 0 var(--lf-warn)} .lf-log-row--fatal{box-shadow:inset 3px 0 0 var(--lf-fatal)}
+.lf-log-row mark{background:var(--lf-teal-100);color:var(--lf-navy);border-radius:2px;padding:0 2px}
+/* Live indicator */
+.lf-live{display:inline-flex;align-items:center;gap:6px;font:500 var(--lf-text-xs) var(--lf-font-sans);color:var(--lf-teal-600)}
+.lf-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lf-teal);animation:lf-pulse 1.6s ease-out infinite}
+@keyframes lf-pulse{0%{box-shadow:0 0 0 0 rgba(20,184,166,.6)}100%{box-shadow:0 0 0 8px rgba(20,184,166,0)}}
+/* Sidebar nav */
+.lf-nav{width:232px;background:var(--lf-navy);color:var(--lf-navy-300);padding:var(--lf-space-4);display:flex;flex-direction:column;gap:2px}
+.lf-nav a{display:flex;align-items:center;gap:var(--lf-space-3);height:36px;padding:0 var(--lf-space-3);border-radius:var(--lf-radius);color:inherit;font-weight:500}
+.lf-nav a:hover{background:var(--lf-navy-700);color:#fff;text-decoration:none}
+.lf-nav a[aria-current="page"]{background:var(--lf-navy-700);color:#fff;box-shadow:inset 3px 0 0 var(--lf-teal)}
+/* Toasts / tags / skeleton */
+.lf-tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:var(--lf-radius-pill);background:var(--lf-surface-2);color:var(--lf-text-muted);font:500 var(--lf-text-xs) var(--lf-font-mono)}
+.lf-skeleton{background:linear-gradient(90deg,var(--lf-surface-2),var(--lf-border),var(--lf-surface-2));background-size:200% 100%;animation:lf-shimmer 1.4s linear infinite;border-radius:var(--lf-radius)}
+@keyframes lf-shimmer{to{background-position:-200% 0}}

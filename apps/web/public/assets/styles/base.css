@@ -1,0 +1,12 @@
+@import "../fonts/fonts.css";
+@import "./tokens.css";
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--lf-bg);color:var(--lf-text);font:400 var(--lf-text-base)/1.55 var(--lf-font-sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--lf-font-display);letter-spacing:-.02em;margin:0 0 .5em;line-height:1.15}
+h1{font-size:var(--lf-text-2xl)} h2{font-size:var(--lf-text-xl)} h3{font-size:var(--lf-text-lg)}
+code,pre,kbd{font-family:var(--lf-font-mono);font-size:.92em}
+a{color:var(--lf-blue);text-decoration:none} a:hover{text-decoration:underline}
+:focus-visible{outline:none;box-shadow:var(--lf-focus);border-radius:var(--lf-radius-sm)}
+.lf-icon{width:20px;height:20px;stroke:currentColor;fill:none;flex:none;vertical-align:middle}
+::selection{background:var(--lf-blue-100);color:var(--lf-navy)}

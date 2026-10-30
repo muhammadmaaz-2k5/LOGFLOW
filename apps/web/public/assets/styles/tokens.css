@@ -1,0 +1,30 @@
+:root{
+  /* brand */
+  --lf-navy:#0B1B33; --lf-navy-700:#132A4D; --lf-navy-500:#5B7099; --lf-navy-300:#9FB4D9;
+  --lf-teal:#14B8A6; --lf-teal-600:#0F9488; --lf-teal-100:#CCFBF1;
+  --lf-blue:#3B6BFF; --lf-blue-600:#2A52D6; --lf-blue-100:#E0E8FF;
+  /* surfaces (light) */
+  --lf-bg:#F6F8FB; --lf-surface:#FFFFFF; --lf-surface-2:#EEF2F7; --lf-border:#DCE3EC;
+  --lf-text:#0B1B33; --lf-text-muted:#5B6B82; --lf-text-faint:#8A98AD;
+  /* log levels */
+  --lf-trace:#64748B; --lf-debug:#8B5CF6; --lf-info:#2563EB; --lf-warn:#D97706; --lf-error:#DC2626; --lf-fatal:#9D174D;
+  --lf-trace-bg:#F1F5F9; --lf-debug-bg:#F3EEFF; --lf-info-bg:#E6EEFF; --lf-warn-bg:#FFF3DD; --lf-error-bg:#FDE8E8; --lf-fatal-bg:#FBE6EF;
+  /* type */
+  --lf-font-display:"Space Grotesk","Inter",system-ui,sans-serif;
+  --lf-font-sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --lf-font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --lf-text-xs:12px; --lf-text-sm:13px; --lf-text-base:14px; --lf-text-md:16px; --lf-text-lg:20px; --lf-text-xl:28px; --lf-text-2xl:40px;
+  /* shape & space */
+  --lf-radius-sm:4px; --lf-radius:8px; --lf-radius-lg:14px; --lf-radius-pill:999px;
+  --lf-space-1:4px; --lf-space-2:8px; --lf-space-3:12px; --lf-space-4:16px; --lf-space-5:24px; --lf-space-6:32px; --lf-space-7:48px;
+  --lf-shadow-sm:0 1px 2px rgba(11,27,51,.06); --lf-shadow-md:0 6px 20px rgba(11,27,51,.10);
+  --lf-focus:0 0 0 3px rgba(59,107,255,.35);
+}
+[data-theme="dark"]{
+  --lf-bg:#08121F; --lf-surface:#0E1D33; --lf-surface-2:#132642; --lf-border:#1F3558;
+  --lf-text:#E8EEF8; --lf-text-muted:#9FB0CC; --lf-text-faint:#6E82A3;
+  --lf-trace:#94A3B8; --lf-debug:#A78BFA; --lf-info:#6B9BFF; --lf-warn:#F5A524; --lf-error:#F87171; --lf-fatal:#F472B6;
+  --lf-trace-bg:#1B2A42; --lf-debug-bg:#25204A; --lf-info-bg:#14264F; --lf-warn-bg:#3A2A10; --lf-error-bg:#3F1A1F; --lf-fatal-bg:#3D1630;
+  --lf-shadow-sm:none; --lf-shadow-md:0 8px 24px rgba(0,0,0,.45);
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

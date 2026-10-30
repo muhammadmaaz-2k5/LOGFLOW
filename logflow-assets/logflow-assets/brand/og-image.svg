@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#0B1B33"/>
+<g opacity=".16" stroke="#9FB4D9" stroke-width="2" stroke-linecap="round" fill="none"><path d="M560 120h400M560 170h520M560 220h300M560 270h460M560 320h380M560 370h500"/><path d="M560 430h240c140 0 140-100 380-100" stroke="#14B8A6" opacity="1" stroke-width="6"/></g>
+<g transform="translate(80 90) scale(1.6)"><path d="M14 20h20" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M14 32h28" stroke="#9FB4D9" stroke-width="5" stroke-linecap="round"/><path d="M14 44h14c10 0 10-12 22-12" stroke="#14B8A6" stroke-width="5" stroke-linecap="round" fill="none"/></g>
+<text x="80" y="300" font-family="Space Grotesk, Inter, sans-serif" font-size="88" font-weight="700" letter-spacing="-2" fill="#fff">LogFlow</text>
+<text x="80" y="365" font-family="Inter, sans-serif" font-size="34" fill="#9FB4D9">Every log, one stream.</text>
+<text x="80" y="540" font-family="JetBrains Mono, monospace" font-size="24" fill="#14B8A6">ERROR  payment-api  timeout after 30s</text></svg>

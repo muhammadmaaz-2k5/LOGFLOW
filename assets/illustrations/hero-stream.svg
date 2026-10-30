@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" fill="none"><title>Logs flowing into one stream</title>
+<g stroke-linecap="round" stroke-width="6">
+<path d="M40 60h260c120 0 140 150 260 150" stroke="#9FB4D9"/><path d="M40 120h200c140 0 180 90 320 90" stroke="#5B7099"/><path d="M40 180h160c180 0 220 30 360 30" stroke="#3B6BFF"/><path d="M40 240h160c180 0 220-30 360-30" stroke="#5B7099"/><path d="M40 300h200c140 0 180-90 320-90" stroke="#9FB4D9"/><path d="M40 360h260c120 0 140-150 260-150" stroke="#3B6BFF"/>
+<path d="M560 210h300" stroke="#14B8A6" stroke-width="10"/></g>
+<circle cx="560" cy="210" r="14" fill="#0B1B33" stroke="#14B8A6" stroke-width="6"/></svg>
