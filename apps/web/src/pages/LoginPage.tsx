@@ -10,7 +10,7 @@ export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('alex@logflow.dev');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('LogFlowDemo#2026!');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
