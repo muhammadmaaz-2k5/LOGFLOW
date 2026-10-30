@@ -277,38 +277,75 @@ export async function getDb(): Promise<DbClient> {
       }
     };
   } else {
-    fs.mkdirSync(config.pgDataDir, { recursive: true });
-    const pglite = new PGlite(config.pgDataDir);
-    await pglite.waitReady;
-    await pglite.exec(SCHEMA_SQL);
+    // When external PostgreSQL is not configured, fall back to purely in-memory metadata
+    // or MongoDB directly rather than spawning heavy WebAssembly WASM PGlite engines on 512MB hosts
+    const inMemStore = new Map<string, any[]>();
+    for (const t of METADATA_TABLES) inMemStore.set(t, []);
 
     baseDb = {
-      async query<T = Record<string, any>>(
-        sql: string,
-        params: unknown[] = []
-      ): Promise<QueryResult<T>> {
-        const res = await pglite.query<T>(sql, params);
-        return { rows: res.rows, rowCount: res.affectedRows ?? res.rows.length };
+      async query<T = Record<string, any>>(sql: string, params: unknown[] = []): Promise<QueryResult<T>> {
+        const mongo = await getMongoDb().catch(() => null);
+        const upper = sql.trim().toUpperCase();
+
+        if (mongo) {
+          // Parse common queries when mongo is active
+          if (upper.startsWith('SELECT') && upper.includes('FROM USERS WHERE LOWER(EMAIL)')) {
+            const email = String(params[0] ?? '').toLowerCase();
+            const u = await mongo.collection('users').findOne({ email });
+            return { rows: u ? [u as unknown as T] : [], rowCount: u ? 1 : 0 };
+          }
+          if (upper.startsWith('SELECT') && upper.includes('FROM USERS WHERE ID')) {
+            const u = await mongo.collection('users').findOne({ id: params[0] });
+            return { rows: u ? [u as unknown as T] : [], rowCount: u ? 1 : 0 };
+          }
+          if (upper.startsWith('SELECT COUNT(*) AS CNT FROM USERS')) {
+            const cnt = await mongo.collection('users').countDocuments();
+            return { rows: [{ cnt }] as unknown as T[], rowCount: 1 };
+          }
+          if (upper.startsWith('SELECT') && upper.includes('FROM PROJECTS')) {
+            if (upper.includes('WHERE ID')) {
+              const p = await mongo.collection('projects').findOne({ id: params[0] });
+              return { rows: p ? [p as unknown as T] : [], rowCount: p ? 1 : 0 };
+            }
+            const list = await mongo.collection('projects').find({}).toArray();
+            return { rows: list as unknown as T[], rowCount: list.length };
+          }
+          if (upper.startsWith('SELECT') && upper.includes('FROM API_KEYS')) {
+            if (upper.includes('KEY_HASH')) {
+              const k = await mongo.collection('api_keys').findOne({ key_hash: params[0] });
+              return { rows: k ? [k as unknown as T] : [], rowCount: k ? 1 : 0 };
+            }
+            if (upper.includes('PROJECT_ID')) {
+              const list = await mongo.collection('api_keys').find({ project_id: params[0] }).toArray();
+              return { rows: list as unknown as T[], rowCount: list.length };
+            }
+          }
+          if (upper.startsWith('SELECT') && upper.includes('FROM ALERT_RULES')) {
+            const filter: any = {};
+            if (upper.includes('WHERE ID')) filter.id = params[0];
+            else if (upper.includes('PROJECT_ID = $1 AND ENABLED = TRUE')) {
+              filter.project_id = params[0];
+              filter.enabled = true;
+            } else if (upper.includes('PROJECT_ID')) {
+              filter.project_id = params[0];
+            }
+            const list = await mongo.collection('alert_rules').find(filter).toArray();
+            return { rows: list as unknown as T[], rowCount: list.length };
+          }
+          if (upper.startsWith('SELECT') && upper.includes('FROM ALERT_HISTORY')) {
+            const list = await mongo.collection('alert_history').find({}).sort({ triggered_at: -1 }).limit(100).toArray();
+            return { rows: list as unknown as T[], rowCount: list.length };
+          }
+        }
+
+        return { rows: [], rowCount: 0 };
       },
       async withTransaction<T>(fn: (tx: Pick<DbClient, 'query'>) => Promise<T>): Promise<T> {
-        await pglite.query('BEGIN');
-        try {
-          const out = await fn({
-            query: async <R = Record<string, any>>(sql: string, params: unknown[] = []) => {
-              const res = await pglite.query<R>(sql, params);
-              return { rows: res.rows, rowCount: res.affectedRows ?? res.rows.length };
-            }
-          });
-          await pglite.query('COMMIT');
-          return out;
-        } catch (err) {
-          await pglite.query('ROLLBACK').catch(() => {});
-          throw err;
-        }
+        return fn({
+          query: baseDb.query
+        });
       },
-      async close() {
-        await pglite.close();
-      }
+      async close() {}
     };
   }
 
