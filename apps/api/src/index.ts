@@ -24,8 +24,18 @@ export async function buildApp() {
     .filter(Boolean);
 
   await app.register(cors, {
-    origin: config.corsOrigin === '*' ? true : allowedOrigins,
-    credentials: true
+    origin: (origin, cb) => {
+      // Allow requests with no origin (like mobile apps, curl, or server-to-server)
+      if (!origin) return cb(null, true);
+      if (config.corsOrigin === '*') return cb(null, true);
+      const isAllowed = allowedOrigins.some(
+        (o) => o === origin || origin.endsWith('.vercel.app') || o === '*'
+      );
+      if (isAllowed) return cb(null, true);
+      return cb(new Error('Not allowed by CORS'), false);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
   });
 
   await app.register(websocket);
