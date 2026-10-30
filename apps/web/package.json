@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
+    "prebuild": "npm --workspace @logflow/shared run build",
     "build": "tsc -b && vite build",
     "preview": "vite preview --port 5173"
   },
